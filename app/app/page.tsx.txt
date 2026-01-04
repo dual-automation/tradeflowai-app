@@ -1,70 +1,65 @@
-"use client";
-
-import { useState } from "react";
-
 export default function Home() {
-  const [email, setEmail] = useState("");
-
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "grid",
-        placeItems: "center",
-        background: "#0b0f14",
-        color: "#e9eef7",
-        fontFamily:
-          "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
-      }}
-    >
-      <div
+    <html>
+      <body
         style={{
-          width: 420,
-          background: "#101826",
-          borderRadius: 16,
-          padding: 28,
-          border: "1px solid rgba(255,255,255,.08)",
-          textAlign: "center",
+          minHeight: "100vh",
+          display: "grid",
+          placeItems: "center",
+          background: "#0b0f14",
+          color: "#e9eef7",
+          fontFamily:
+            "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
         }}
       >
-        <h1>TradeFlow AI</h1>
-        <p style={{ color: "#a8b3c7" }}>Secure access to your workspace</p>
-
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+        <div
           style={{
-            width: "100%",
-            padding: 12,
-            marginTop: 12,
-            borderRadius: 10,
-            border: "none",
-          }}
-        />
-
-        <button
-          onClick={() => alert("Button works")}
-          style={{
-            width: "100%",
-            marginTop: 14,
-            padding: 12,
-            borderRadius: 10,
-            background: "#4f8cff",
-            color: "white",
-            border: "none",
-            fontWeight: 700,
-            cursor: "pointer",
+            width: 420,
+            background: "#101826",
+            borderRadius: 16,
+            padding: 28,
+            border: "1px solid rgba(255,255,255,.08)",
+            textAlign: "center",
           }}
         >
-          Test Button
-        </button>
+          <h1>TradeFlow AI</h1>
+          <p style={{ color: "#a8b3c7" }}>
+            Plain HTML test (no React, no JS)
+          </p>
 
-        <div style={{ marginTop: 18, fontSize: 12, color: "#a8b3c7" }}>
-          Powered by <b>Dual Automation Technologies</b>
+          <input
+            type="email"
+            placeholder="You SHOULD be able to type here"
+            style={{
+              width: "100%",
+              padding: 12,
+              marginTop: 12,
+              borderRadius: 10,
+              border: "none",
+            }}
+          />
+
+          <button
+            style={{
+              width: "100%",
+              marginTop: 14,
+              padding: 12,
+              borderRadius: 10,
+              background: "#4f8cff",
+              color: "white",
+              border: "none",
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
+            Static Button
+          </button>
+
+          <div style={{ marginTop: 18, fontSize: 12, color: "#a8b3c7" }}>
+            Powered by <b>Dual Automation Technologies</b>
+          </div>
         </div>
-      </div>
-    </main>
+      </body>
+    </html>
   );
 }

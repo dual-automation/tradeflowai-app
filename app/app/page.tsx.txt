@@ -1,54 +1,69 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { useState } from "react";
 
-export default function AppPage() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) {
-        window.location.href = "/";
-      } else {
-        setLoading(false);
-      }
-    });
-  }, []);
-
-  if (loading) {
-    return (
-      <div style={{ padding: 24, color: "#e9eef7", background: "#0b0f14", minHeight: "100vh" }}>
-        Loading…
-      </div>
-    );
-  }
+export default function Home() {
+  const [email, setEmail] = useState("");
 
   return (
     <main
       style={{
         minHeight: "100vh",
+        display: "grid",
+        placeItems: "center",
         background: "#0b0f14",
         color: "#e9eef7",
-        padding: 24,
-        fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+        fontFamily:
+          "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
       }}
     >
-      <h1>TradeFlow AI — App</h1>
-      <p style={{ color: "#a8b3c7" }}>
-        You are authenticated. This is the protected app area.
-      </p>
-
       <div
         style={{
-          marginTop: 24,
-          padding: 24,
-          borderRadius: 16,
+          width: 420,
           background: "#101826",
+          borderRadius: 16,
+          padding: 28,
           border: "1px solid rgba(255,255,255,.08)",
+          textAlign: "center",
         }}
       >
-        <p>This is where the Aminos embed will go next.</p>
+        <h1>TradeFlow AI</h1>
+        <p style={{ color: "#a8b3c7" }}>Secure access to your workspace</p>
+
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{
+            width: "100%",
+            padding: 12,
+            marginTop: 12,
+            borderRadius: 10,
+            border: "none",
+          }}
+        />
+
+        <button
+          onClick={() => alert("Button works")}
+          style={{
+            width: "100%",
+            marginTop: 14,
+            padding: 12,
+            borderRadius: 10,
+            background: "#4f8cff",
+            color: "white",
+            border: "none",
+            fontWeight: 700,
+            cursor: "pointer",
+          }}
+        >
+          Test Button
+        </button>
+
+        <div style={{ marginTop: 18, fontSize: 12, color: "#a8b3c7" }}>
+          Powered by <b>Dual Automation Technologies</b>
+        </div>
       </div>
     </main>
   );

@@ -1,9 +1,39 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
+      setStatus("");
+
+      if (!email || !email.includes("@")) {
+        setStatus("Please enter a valid email address.");
+        return;
+      }
+
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/app`,
+        },
+      });
+
+      if (error) throw error;
+
+      setStatus("Check your email for the secure login link.");
+    } catch (err: any) {
+      setStatus(err?.message || "Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main
@@ -14,7 +44,8 @@ export default function Home() {
         background:
           "radial-gradient(1200px 600px at 50% -10%, #1b2a4a 0%, #0b0f14 45%)",
         color: "#e9eef7",
-        fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+        fontFamily:
+          "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
       }}
     >
       <div
@@ -29,16 +60,16 @@ export default function Home() {
         }}
       >
         <img
-  src="/logo.png"
-  alt="TradeFlow AI"
-  style={{
-    height: 56,
-    margin: "0 auto 18px",
-    display: "block",
-  }}
-/>
+          src="/logo.png"
+          alt="TradeFlow AI"
+          style={{
+            height: 56,
+            margin: "0 auto 18px",
+            display: "block",
+          }}
+        />
 
-        <h1 style={{ margin: "6px 0 6px" }}>AI Built For Contractors</h1>
+        <h1 style={{ margin: "6px 0 6px" }}>TradeFlow AI</h1>
         <p style={{ color: "#a8b3c7", marginBottom: 18 }}>
           Secure access to your TradeFlow workspace
         </p>
@@ -60,7 +91,8 @@ export default function Home() {
         />
 
         <button
-          onClick={() => alert("Button works")}
+          onClick={handleLogin}
+          disabled={loading}
           style={{
             width: "100%",
             marginTop: 14,
@@ -70,11 +102,24 @@ export default function Home() {
             color: "white",
             border: "none",
             fontWeight: 700,
-            cursor: "pointer",
+            cursor: loading ? "default" : "pointer",
+            opacity: loading ? 0.7 : 1,
           }}
         >
-          Continue
+          {loading ? "Sending secure link…" : "Continue"}
         </button>
+
+        {status && (
+          <p
+            style={{
+              marginTop: 14,
+              fontSize: 13,
+              color: "#a8b3c7",
+            }}
+          >
+            {status}
+          </p>
+        )}
 
         <div
           style={{

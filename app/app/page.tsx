@@ -3,37 +3,29 @@
 import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 
-
 export default function Home() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleLogin = async () => {
-    try {
-      setLoading(true);
-      setStatus("");
+    setLoading(true);
+    setMessage("");
 
-      if (!email || !email.includes("@")) {
-        setStatus("Please enter a valid email address.");
-        return;
-      }
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: window.location.origin,
+      },
+    });
 
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          emailRedirectTo: `${window.location.origin}/app`,
-        },
-      });
-
-      if (error) throw error;
-
-      setStatus("Check your email for the secure login link.");
-    } catch (err: any) {
-      setStatus(err?.message || "Something went wrong. Try again.");
-    } finally {
-      setLoading(false);
+    if (error) {
+      setMessage(error.message);
+    } else {
+      setMessage("Check your email for the login link.");
     }
+
+    setLoading(false);
   };
 
   return (
@@ -42,37 +34,24 @@ export default function Home() {
         minHeight: "100vh",
         display: "grid",
         placeItems: "center",
-        background:
-          "radial-gradient(1200px 600px at 50% -10%, #1b2a4a 0%, #0b0f14 45%)",
+        background: "#0b0f14",
         color: "#e9eef7",
-        fontFamily:
-          "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+        fontFamily: "system-ui, sans-serif",
       }}
     >
       <div
         style={{
           width: 420,
-          background: "rgba(16,24,38,.92)",
-          borderRadius: 18,
-          padding: 32,
-          border: "1px solid rgba(255,255,255,.08)",
-          boxShadow: "0 30px 80px rgba(0,0,0,.6)",
+          padding: 28,
+          borderRadius: 16,
+          background: "#101826",
           textAlign: "center",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
         }}
       >
-        <img
-          src="/logo.png"
-          alt="TradeFlow AI"
-          style={{
-            height: 56,
-            margin: "0 auto 18px",
-            display: "block",
-          }}
-        />
-
-        <h1 style={{ margin: "6px 0 6px" }}>TradeFlow AI</h1>
-        <p style={{ color: "#a8b3c7", marginBottom: 18 }}>
-          Secure access to your TradeFlow workspace
+        <h1 style={{ marginBottom: 6 }}>TradeFlow AI</h1>
+        <p style={{ marginBottom: 20, opacity: 0.8 }}>
+          Secure access to your workspace
         </p>
 
         <input
@@ -83,55 +62,37 @@ export default function Home() {
           style={{
             width: "100%",
             padding: 12,
-            borderRadius: 10,
-            border: "1px solid rgba(255,255,255,.12)",
-            background: "#0b1220",
-            color: "#e9eef7",
-            outline: "none",
+            borderRadius: 8,
+            border: "none",
+            marginBottom: 12,
           }}
         />
 
         <button
           onClick={handleLogin}
-          disabled={loading}
+          disabled={loading || !email}
           style={{
             width: "100%",
-            marginTop: 14,
             padding: 12,
-            borderRadius: 10,
-            background: "linear-gradient(135deg,#4f8cff,#6aa2ff)",
-            color: "white",
+            borderRadius: 8,
             border: "none",
-            fontWeight: 700,
-            cursor: loading ? "default" : "pointer",
-            opacity: loading ? 0.7 : 1,
+            background: "#355dff",
+            color: "#fff",
+            fontWeight: 600,
+            cursor: "pointer",
+            opacity: loading || !email ? 0.6 : 1,
           }}
         >
-          {loading ? "Sending secure link…" : "Continue"}
+          {loading ? "Sending link..." : "Continue"}
         </button>
 
-        {status && (
-          <p
-            style={{
-              marginTop: 14,
-              fontSize: 13,
-              color: "#a8b3c7",
-            }}
-          >
-            {status}
-          </p>
+        {message && (
+          <p style={{ marginTop: 12, fontSize: 14 }}>{message}</p>
         )}
 
-        <div
-          style={{
-            marginTop: 18,
-            fontSize: 12,
-            color: "#8ea0c2",
-            opacity: 0.9,
-          }}
-        >
-          Powered by <b>Dual Automation Technologies</b>
-        </div>
+        <p style={{ marginTop: 20, fontSize: 12, opacity: 0.6 }}>
+          Powered by Dual Automation Technologies
+        </p>
       </div>
     </main>
   );

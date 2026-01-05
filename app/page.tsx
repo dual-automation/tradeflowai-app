@@ -29,10 +29,14 @@ export default function Home() {
         }}
       >
         <img
-          src="/logo.svg"
-          alt="TradeFlow AI"
-          style={{ height: 44, margin: "0 auto 14px" }}
-        />
+  src="/logo.png"
+  alt="TradeFlow AI"
+  style={{
+    height: 56,
+    margin: "0 auto 18px",
+    display: "block",
+  }}
+/>
 
         <h1 style={{ margin: "6px 0 6px" }}>TradeFlow AI</h1>
         <p style={{ color: "#a8b3c7", marginBottom: 18 }}>

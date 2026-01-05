@@ -11,32 +11,47 @@ export default function Home() {
         minHeight: "100vh",
         display: "grid",
         placeItems: "center",
-        background: "#0b0f14",
+        background:
+          "radial-gradient(1200px 600px at 50% -10%, #1b2a4a 0%, #0b0f14 45%)",
         color: "#e9eef7",
-        fontFamily: "system-ui, sans-serif",
+        fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
       }}
     >
       <div
         style={{
           width: 420,
-          padding: 28,
-          borderRadius: 16,
-          background: "#101826",
+          background: "rgba(16,24,38,.92)",
+          borderRadius: 18,
+          padding: 32,
+          border: "1px solid rgba(255,255,255,.08)",
+          boxShadow: "0 30px 80px rgba(0,0,0,.6)",
           textAlign: "center",
         }}
       >
-        <h1>TradeFlow AI</h1>
+        <img
+          src="/logo.svg"
+          alt="TradeFlow AI"
+          style={{ height: 44, margin: "0 auto 14px" }}
+        />
+
+        <h1 style={{ margin: "6px 0 6px" }}>TradeFlow AI</h1>
+        <p style={{ color: "#a8b3c7", marginBottom: 18 }}>
+          Secure access to your TradeFlow workspace
+        </p>
 
         <input
           type="email"
-          placeholder="Type here"
+          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           style={{
             width: "100%",
             padding: 12,
-            marginTop: 16,
-            borderRadius: 8,
+            borderRadius: 10,
+            border: "1px solid rgba(255,255,255,.12)",
+            background: "#0b1220",
+            color: "#e9eef7",
+            outline: "none",
           }}
         />
 
@@ -44,20 +59,29 @@ export default function Home() {
           onClick={() => alert("Button works")}
           style={{
             width: "100%",
-            marginTop: 12,
+            marginTop: 14,
             padding: 12,
-            borderRadius: 8,
-            background: "#4f8cff",
+            borderRadius: 10,
+            background: "linear-gradient(135deg,#4f8cff,#6aa2ff)",
             color: "white",
-            fontWeight: "bold",
+            border: "none",
+            fontWeight: 700,
+            cursor: "pointer",
           }}
         >
-          Test Button
+          Continue
         </button>
 
-        <p style={{ marginTop: 16, fontSize: 12 }}>
-          Powered by Dual Automation Technologies
-        </p>
+        <div
+          style={{
+            marginTop: 18,
+            fontSize: 12,
+            color: "#8ea0c2",
+            opacity: 0.9,
+          }}
+        >
+          Powered by <b>Dual Automation Technologies</b>
+        </div>
       </div>
     </main>
   );

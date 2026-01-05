@@ -38,7 +38,7 @@ export default function Home() {
   }}
 />
 
-        <h1 style={{ margin: "6px 0 6px" }}>TradeFlow AI</h1>
+        <h1 style={{ margin: "6px 0 6px" }}>AI Built For Contractors</h1>
         <p style={{ color: "#a8b3c7", marginBottom: 18 }}>
           Secure access to your TradeFlow workspace
         </p>
